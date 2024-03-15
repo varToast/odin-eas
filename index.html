@@ -11,82 +11,50 @@
         <input type="range" min="16" max="50" value="16" class="slider" id="myDimension">
         <p>Dimension: <span id="tipDimension"></span></p>
         <input type="color" value="#000000" id="myColor">
-<!-- button to refresh / generate new grid -->
         <button id="makeGrid">Make Grid</button>
     </div>
     <div class = "container">
-<!-- here goes the grid -->
     </div>
 </body>
 
-
-
-
-
 <script>
-
 const myDimension = document.querySelector("#myDimension");
 const printDimension = document.querySelector("#tipDimension");
 const container = document.querySelector(".container");
 const color = document.querySelector("#myColor");
 let btn = document.querySelector("#makeGrid");
 
-
+btn.addEventListener('click', function (){
+    generateGrid(myDimension.value)
+})
 // prints slider value in header
 printDimension.textContent = myDimension.value + " x " + myDimension.value;
 myDimension.oninput = function() {
   printDimension.textContent = myDimension.value + " x " + myDimension.value;
 }
-
-// button refreshes the grid
-btn.addEventListener('click', function (){
-    generateGrid(myDimension.value)
-})
-
-// first while loop removes the existing grid
-// creates a grid of empty divs within a container of myDimension
-// nest row 'for loop' inside column 'for loop'
-// assigns color on hover
+//Removes existing grid
+//Creates new grid from selected dimension size
+//Changes color of hovered boxes to selected color
 function generateGrid(myDimension){
     while (container.hasChildNodes()){
         container.removeChild(container.firstChild)
     }
+// creates rows
     for (let i = 0; i < myDimension; i++){
         const row = document.createElement("div");
         row.className = "row";
         container.appendChild(row);
+// creates boxes within rows
         for (let i = 0; i < myDimension; i++){
             const box = document.createElement("div");
             box.className = "box";
             row.appendChild(box);
+// changes color of box on hover
             box.addEventListener('mouseover', function(){
                 this.style.backgroundColor = color.value;
             })
         }
     }
 }
-
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </html>
